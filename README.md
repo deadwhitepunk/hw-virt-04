@@ -95,7 +95,7 @@ def ensure_table_exists():
 
 В эндопинте для просмотра зписей в БД подставили переменную
 
-```query = "SELECT id, request_date, request_ip FROM '{db_table}' ORDER BY id DESC LIMIT 50"```
+```query = f"SELECT id, request_date, request_ip FROM {db_table} ORDER BY id DESC LIMIT 50"```
 
 Перед запуском определяем новую env переменную
 
@@ -117,6 +117,12 @@ def ensure_table_exists():
 3. Соберите и залейте в него образ с python приложением из задания №1.
 4. Просканируйте образ на уязвимости.
 5. В качестве ответа приложите отчет сканирования.
+
+[Vulnerabilities](https://github.com/deadwhitepunk/hw-virt-04/blob/main/vulnerabilities.csv)
+
+Скриншот:
+
+![Check containers vuln](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc2.png)
 
 ## Задача 3
 1. Изучите файл "proxy.yaml"
