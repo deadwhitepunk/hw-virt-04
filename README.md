@@ -59,14 +59,15 @@ Curl + Лог контейнера c программой:
 4. (Необязательная часть, *) Изучите код приложения и добавьте управление названием таблицы через ENV переменную.
 Объявили переменную
 
-db_table = os.environ.get('DB_TABLE', 'requests')
+```db_table = os.environ.get('DB_TABLE', 'requests')```
 
 Сделали вывод названия таблицы
 
-print(f"Соединение с БД установлено и таблица {db_table} готова к работе.")
+```print(f"Соединение с БД установлено и таблица {db_table} готова к работе.")```
 
 В функции подставили переменную
 
+```sh
 def ensure_table_exists():
     """Создает таблицу requests если она не существует"""
     try:
@@ -86,14 +87,15 @@ def ensure_table_exists():
     except mysql.connector.Error as err:
         print(f"Ошибка при создании таблицы: {err}")
         return False
+```
 
 В основном эндпоите подставили переменную
 
-query = f"INSERT INTO {db_table} (request_date, request_ip) VALUES (%s, %s)"
+```query = f"INSERT INTO {db_table} (request_date, request_ip) VALUES (%s, %s)"```
 
 В эндопинте для просмотра зписей в БД подставили переменную
 
-query = "SELECT id, request_date, request_ip FROM '{db_table}' ORDER BY id DESC LIMIT 50"
+```query = "SELECT id, request_date, request_ip FROM '{db_table}' ORDER BY id DESC LIMIT 50"```
 
 Перед запуском определяем новую env переменную
 
