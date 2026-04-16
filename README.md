@@ -140,6 +140,10 @@ def ensure_table_exists():
 
 6. Остановите проект. В качестве ответа приложите скриншот sql-запроса.
 
+![Curl 8090](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc3_curl_8090.png)
+
+![SQL zapros](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc3_1_sql.png)
+
 ## Задача 4
 1. Запустите в Yandex Cloud ВМ (вам хватит 2 Гб Ram).
 2. Подключитесь к Вм по ssh и установите docker.
@@ -147,6 +151,12 @@ def ensure_table_exists():
 4. Зайдите на сайт проверки http подключений, например(или аналогичный): ```https://check-host.net/check-http``` и запустите проверку вашего сервиса ```http://<внешний_IP-адрес_вашей_ВМ>:8090```. Таким образом трафик будет направлен в ingress-proxy. Трафик должен пройти через цепочки: Пользователь → Internet → Nginx → HAProxy → FastAPI(запись в БД) → HAProxy → Nginx → Internet → Пользователь
 5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
 6. Повторите SQL-запрос на сервере и приложите скриншот и ссылку на fork.
+
+![SQL zapros with outside ip](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc3_outside_ip.png)
+
+[Repo with project](https://github.com/deadwhitepunk/shvirtd-example-python)
+
+
 
 ## Задача 5 (*)
 1. Напишите и задеплойте на вашу облачную ВМ bash скрипт, который произведет резервное копирование БД mysql в директорию "/opt/backup" с помощью запуска в сети "backend" контейнера из образа ```schnitzler/mysqldump``` при помощи ```docker run ...``` команды. Подсказка: "документация образа."
