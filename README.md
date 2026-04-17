@@ -150,19 +150,32 @@ def ensure_table_exists():
 3. Напишите bash-скрипт, который скачает ваш fork-репозиторий в каталог /opt и запустит проект целиком.
 4. Зайдите на сайт проверки http подключений, например(или аналогичный): ```https://check-host.net/check-http``` и запустите проверку вашего сервиса ```http://<внешний_IP-адрес_вашей_ВМ>:8090```. Таким образом трафик будет направлен в ingress-proxy. Трафик должен пройти через цепочки: Пользователь → Internet → Nginx → HAProxy → FastAPI(запись в БД) → HAProxy → Nginx → Internet → Пользователь
 5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
+
+![Remote context](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc4_remote_context.png)
+
 6. Повторите SQL-запрос на сервере и приложите скриншот и ссылку на fork.
 
-![SQL zapros with outside ip](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc3_outside_ip.png)
+![SQL zapros with outside ip](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc4_outside_ip.png)
 
 [Repo with project](https://github.com/deadwhitepunk/shvirtd-example-python)
-
 
 
 ## Задача 5 (*)
 1. Напишите и задеплойте на вашу облачную ВМ bash скрипт, который произведет резервное копирование БД mysql в директорию "/opt/backup" с помощью запуска в сети "backend" контейнера из образа ```schnitzler/mysqldump``` при помощи ```docker run ...``` команды. Подсказка: "документация образа."
 2. Протестируйте ручной запуск
+
+![Manual run script](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc5_hand_backup_script.png)
+
 3. Настройте выполнение скрипта раз в 1 минуту через cron, crontab или systemctl timer. Придумайте способ не светить логин/пароль в git!!
 4. Предоставьте скрипт, cron-task и скриншот с несколькими резервными копиями в "/opt/backup"
+
+[Backup script](https://github.com/deadwhitepunk/hw-virt-04/script_backup.sh)
+
+Всю сенситив информацию сделали переменными в кроне, крон в гит не попадет.
+
+![Cron](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc5_cron+sensitive_data.png)
+
+![Result autobackup](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc5_result_of_backup.png)
 
 ## Задача 6
 Скачайте docker образ ```hashicorp/terraform:latest``` и скопируйте бинарный файл ```/bin/terraform``` на свою локальную машину, используя dive и docker save.
