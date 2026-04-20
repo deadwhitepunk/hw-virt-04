@@ -181,13 +181,42 @@ def ensure_table_exists():
 Скачайте docker образ ```hashicorp/terraform:latest``` и скопируйте бинарный файл ```/bin/terraform``` на свою локальную машину, используя dive и docker save.
 Предоставьте скриншоты  действий .
 
+Находим слой где добавляется terraform
+
+![Dive](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc6_find_bin_terraform_dive.png)
+
+Сохраняем контейнер по слоям с помощью docker save и прыгаем в blobs
+
+![Docker save](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc5_result_of_backup.png)
+
+Разахривируем blob с бинарником terraform
+
+![Docker save](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc6_here_are_terraform.png)
+
 ## Задача 6.1
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
 
+Поднимаем временный контейнер на основе офф контейнера terraform и по пути копируем оттуда terraform
+
+![Docker save](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc6_1_docker_cp.png)
+
 ## Задача 6.2 (**)
 Предложите способ извлечь файл из контейнера, используя только команду docker build и любой Dockerfile.  
 Предоставьте скриншоты  действий .
+
+Поднимаем вот такой multistage image. Билдим сначала официальный terraform image. Следующей стадией нам просто запросто нужно поднять любой image, взяли практически пустой scratch, на его месте может быть любой и указали что копировать и откуда.
+
+```Dockerfile
+FROM hashicorp/terraform:latest AS donor
+
+FROM scratch
+COPY --from=donor /bin/terraform terraform
+```
+
+Включили BuildKit для поддержки флага output. И буквально говорим докеру что бы он экспортировал нам в папку результат сборки и с помощью dest указываем куда это сделать
+
+![Docker save](https://github.com/deadwhitepunk/hw-virt-04/blob/main/img/exc6_2_build.png)
 
 ## Задача 7 (***)
 Запустите ваше python-приложение с помощью runC, не используя docker или containerd.  
